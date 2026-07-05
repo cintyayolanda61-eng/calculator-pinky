@@ -1,0 +1,402 @@
+:root {
+            --bg-pastel-pink: #FFD6E7;
+            --soft-pink: #FFB6C1;
+            --rose-pink: #FF69B4;
+            --white: #FFFFFF;
+            --light-gray: #F8F8F8;
+            --dark-text: #5D4D54;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow-soft: 0 8px 32px 0 rgba(255, 105, 180, 0.15);
+            --shadow-button: 0 4px 15px rgba(255, 182, 193, 0.2);
+            --shadow-operator: 0 4px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none; /* Mencegah seleksi teks saat tombol diklik cepat */
+            -webkit-user-select: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC2D1 50%, #FFB3C6 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* ==========================================================================
+           2. DEKORASI BACKGROUND (Bubble & Sparkle Bergerak)
+           ========================================================================== */
+        .bg-decorations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Bubble / Lingkaran Abstrak */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 182, 193, 0.4) 100%);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: floatAnimation 20s infinite ease-in-out;
+        }
+
+        .bubble-1 {
+            width: 150px;
+            height: 150px;
+            top: 15%;
+            left: 10%;
+            animation-duration: 18s;
+        }
+
+        .bubble-2 {
+            width: 250px;
+            height: 250px;
+            bottom: 10%;
+            right: 5%;
+            animation-duration: 25s;
+            animation-delay: -5s;
+        }
+
+        .bubble-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 15%;
+            animation-duration: 15s;
+            animation-delay: -2s;
+        }
+
+        .bubble-4 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            right: 25%;
+            animation-duration: 12s;
+            animation-delay: -8s;
+        }
+
+        /* Sparkles / Bintang Berkilau */
+        .sparkle {
+            position: absolute;
+            background: var(--white);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            opacity: 0.6;
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        .sparkle-1 {
+            width: 20px;
+            height: 20px;
+            top: 25%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .sparkle-2 {
+            width: 15px;
+            height: 15px;
+            bottom: 30%;
+            left: 8%;
+            animation-delay: 3s;
+        }
+
+        /* Animasi Bergerak Lambat untuk Bubble */
+        @keyframes floatAnimation {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) translateX(20px) scale(1.05) rotate(120deg);
+            }
+            66% {
+                transform: translateY(15px) translateX(-15px) scale(0.95) rotate(240deg);
+            }
+        }
+
+        /* Animasi Berkedip untuk Sparkle */
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.8); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        /* ==========================================================================
+           3. CONTAINER KALKULATOR (Glassmorphism)
+           ========================================================================== */
+        .calculator-container {
+            width: 100%;
+            max-width: 380px;
+            background: var(--glass-bg);
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-soft);
+            padding: 24px;
+            z-index: 10;
+            position: relative;
+            animation: fadeInDown 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Header Kalkulator (Aksen Premium) */
+        .calculator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+
+        .brand-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--rose-pink);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--soft-pink);
+        }
+        .dot:nth-child(1) { background-color: #FF85A2; }
+        .dot:nth-child(2) { background-color: #FFA3B1; }
+        .dot:nth-child(3) { background-color: #FFC2D1; }
+
+        /* ==========================================================================
+           4. LAYAR TAMPILAN (Display Screen)
+           ========================================================================== */
+        .display {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 2px 10px rgba(255, 105, 180, 0.05);
+            text-align: right;
+            word-wrap: break-word;
+            word-break: break-all;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        /* Riwayat / Proses Perhitungan */
+        .display-formula {
+            font-size: 0.95rem;
+            color: rgba(93, 77, 84, 0.6);
+            min-height: 24px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none; /* Sembunyikan scrollbar Firefox */
+        }
+        .display-formula::-webkit-scrollbar {
+            display: none; /* Sembunyikan scrollbar Chrome/Safari */
+        }
+
+        /* Angka Utama / Hasil Saat Ini */
+        .display-current {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            line-height: 1.2;
+            transition: font-size 0.15s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .display-current::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Animasi Pop saat hasil kalkulasi muncul */
+        @keyframes resultPop {
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pop-animation {
+            animation: resultPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* ==========================================================================
+           5. TOMBOL & GRID (Keyboard Layout)
+           ========================================================================== */
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        /* Base Button */
+        button {
+            border: none;
+            outline: none;
+            height: 62px;
+            border-radius: 18px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--dark-text);
+            background: var(--white);
+            box-shadow: var(--shadow-button);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efek Gelombang Sentuh (Ripple Effect) */
+        button::after {
+            content: "";
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transform: scale(0);
+            opacity: 1;
+            pointer-events: none;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        button:active::after {
+            transform: scale(2);
+            opacity: 0;
+            transition: 0s;
+        }
+
+        /* Hover State */
+        button:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 20px rgba(255, 182, 193, 0.35);
+        }
+
+        /* Active / Pressed State */
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(255, 182, 193, 0.15);
+        }
+
+        /* Kategori Tombol Khusus */
+        /* 1. Tombol Operator Utama (+ - * /) */
+        .btn-operator {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, #FFA3B1 100%);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-operator:hover {
+            background: linear-gradient(135deg, #FFA3B1 0%, var(--rose-pink) 100%);
+            box-shadow: var(--shadow-operator);
+            color: var(--white);
+        }
+
+        /* 2. Tombol Fungsi (AC, Backspace, %) */
+        .btn-function {
+            background: rgba(255, 255, 255, 0.65);
+            color: var(--rose-pink);
+            font-weight: 600;
+        }
+        .btn-function:hover {
+            background: rgba(255, 255, 255, 0.85);
+            color: #FF4081;
+        }
+
+        /* 3. Tombol Equals / Sama Dengan (=) */
+        .btn-equals {
+            background: linear-gradient(135deg, var(--rose-pink) 0%, #FF4081 100%);
+            color: var(--white);
+            font-size: 1.6rem;
+            font-weight: 600;
+            grid-column: span 1; /* Diubah agar layout seimbang dan ergonomis */
+            box-shadow: var(--shadow-operator);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-equals:hover {
+            background: linear-gradient(135deg, #FF4081 0%, #E91E63 100%);
+            box-shadow: 0 6px 22px rgba(255, 64, 129, 0.5);
+            color: var(--white);
+        }
+
+        /* Icon styling */
+        .backspace-icon {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            vertical-align: middle;
+        }
+
+        /* ==========================================================================
+           6. RESPONSIVITAS (Mobile Friendly)
+           ========================================================================== */
+        @media (max-width: 400px) {
+            .calculator-container {
+                padding: 18px;
+                border-radius: 24px;
+            }
+            .buttons-grid {
+                gap: 10px;
+            }
+            button {
+                height: 56px;
+                border-radius: 14px;
+                font-size: 1.15rem;
+            }
+            .btn-operator {
+                font-size: 1.3rem;
+            }
+            .btn-equals {
+                font-size: 1.4rem;
+            }
+            .display {
+                padding: 16px;
+                min-height: 100px;
+                margin-bottom: 18px;
+            }
+            .display-current {
+                font-size: 1.8rem;
+            }
+        }
